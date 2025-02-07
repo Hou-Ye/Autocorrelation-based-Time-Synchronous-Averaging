@@ -12,7 +12,6 @@ Synchronous averaging
 import numpy as np
 
 from csaps import csaps
-from scipy import stats
 
 def Corr(a, b):
     n = len(a)
@@ -20,7 +19,7 @@ def Corr(a, b):
     corrarray = np.zeros(difval+1)
     for i in range(difval+1):
         bpart = b[i: i+n]
-        corr, _ = stats.pearsonr(a, bpart)
+        corr = np.corrcoef(a, bpart)[0, 1]
         corrarray[i] = corr
     return corrarray
 
@@ -66,5 +65,7 @@ def func(data, refelist, teen, mul=2):
         datalist.append(b_new_cut)
     atsares = np.array(datalist).mean(axis=0)
     return datalist, atsares
+
+
 
 
